@@ -1,0 +1,86 @@
+source ~/.config/nvim/init.vim
+let mapleader = " "
+" set number relativenumber
+" set NERDTree
+" set nu rnu
+" inoremap jk <esc>
+" inoremap <C-h> <Left>
+" inoremap <C-j> <Down>
+" inoremap <C-k> <Up>
+" inoremap <C-l> <Right>
+" imap <leader>, '->'
+nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+set clipboard+=unnamed
+set NERDTree
+
+
+
+nnoremap <leader>t :action GotoFile<CR>
+nnoremap <leader>n :action RenameFile<CR>
+nnoremap <leader>a :action Run<CR>
+nnoremap <leader>d :action ToggleDistractionFreeMode<CR>
+nnoremap <leader>z :action ToggleZenMode<cr>
+
+noremap <leader>v :action Markdown.Layout.EditorAndPreview<CR>
+noremap <leader>h :action Markdown.Layout.EditorOnly<CR>
+
+"
+" Markdown.Layout.PreviewOnly
+
+set surround
+set hi
+set hls
+set ic
+set commentary
+map <Tab><Tab> :action RecentFiles<CR>
+
+nnoremap mm  :action ToggleBookmark<CR>
+nnoremap mb  :action ToggleLineBreakpoint<CR>
+nnoremap <A-j> 10j
+nnoremap <A-k> 10k
+nnoremap <leader>s : action GotoSymbol<CR>
+
+" Closing tabs
+nmap <leader>q :action CloseContent<cr>
+nmap <leader>Q :action ReopenClosedTab<cr>
+
+" Splits manipulation
+nmap <leader>ws :action SplitHorizontally<cr>
+nmap <leader>wv :action SplitVertically<cr>
+nmap <leader>wc :action Unsplit<cr>
+nmap <leader>wC :action UnsplitAll<cr>
+" nmap <leader>ww :action JumpToLastWindow<cr>
+
+" Navigation
+" nmap <leader>h :action Back<cr>
+" nmap <leader>l :action Forward<cr>
+nmap <leader>l :action RecentLocations<cr>
+nmap <leader>u :action FindUsages<cr>
+nmap <leader>s :action GotoSymbol<cr>
+nmap <leader>m :action FileStructurePopup<cr>
+nmap <leader>M :action ActivateStructureToolWindow<cr>
+nmap <c-]> :action GotoImplementation<cr>
+nmap <leader>i :action SelectIn<cr>
+nmap <leader>t :action GotoTest<cr>
+nmap <leader>p :action JumpToLastWindow<cr>
+nmap <leader>b :action ShowBookmarks<cr>
+nmap <leader>o :action OpenEditorInOppositeTabGroup<CR>
+nnoremap <leader>r :action Refactorings.QuickListPopupAction<CR>
+vnoremap <leader>r :action Refactorings.QuickListPopupAction<CR>
+nnoremap [[ :action MethodUp<CR>
+nnoremap ]] :action MethodDown<CR>
+nnoremap <C-a> :action RunContextGroup<CR>
+
+
+set ideavimsupport+=singleline
+set sneak
+
+nmap <C-o> :action Back<CR>
+set highlightedyank
+set which-key
+nmap <leader>f :action me.lensvol.blackconnect.actions.ReformatWholeFileAction<CR>
+
+nnoremap <RightMouse> <S-Enter>
