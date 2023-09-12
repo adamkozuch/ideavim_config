@@ -1,0 +1,90 @@
+local hyper = {"ctrl", "shift"}
+--local hyper = require('hyper')
+
+hs.loadSpoon("MiroWindowsManager")
+
+hs.brightness.set(20)
+hs.window.animationDuration = 0.3
+spoon.MiroWindowsManager:bindHotkeys({
+  up = {hyper, "up"},
+  right = {hyper, "right"},
+  down = {hyper, "down"},
+  left = {hyper, "left"},
+  fullscreen = {hyper, "f"}
+})
+
+local function pressFn(mods, key)
+	if key == nil then
+		 key = mods mods = {}
+	end
+
+	return function() hs.eventtap.keyStroke(mods, key, 1000) end
+end
+
+local function remap(mods, key, pressFn)
+	hs.hotkey.bind(mods, key, pressFn, nil, pressFn)
+end
+
+function moveWindowToDisplay(d)
+	return function()
+	  local displays = hs.screen.allScreens()
+	  local win = hs.window.focusedWindow()
+	  win:moveToScreen(displays[d], false, true)
+	end
+  end
+
+hs.hotkey.bind(hyper, "1", moveWindowToDisplay(1))
+hs.hotkey.bind(hyper, "2", moveWindowToDisplay(2))
+hs.hotkey.bind(hyper, "3", moveWindowToDisplay(3))
+
+remap(hyper, 'h', pressFn('left'))
+remap(hyper, 'j', pressFn('down'))
+remap(hyper, 'k', pressFn('up'))
+remap(hyper, 'l', pressFn('right'))
+
+local This = {}
+-- Quickly move to and from a specific app
+-- (Thanks Teije)
+local previousApp = ""
+
+function switchToAndFromApp(bundleID)
+  local focusedWindow = hs.window.focusedWindow()
+  if focusedWindow == nil then
+    hs.application.launchOrFocusByBundleID(bundleID)
+  elseif focusedWindow:application():bundleID() == bundleID then
+    if previousApp == nil then
+      hs.window.switcher.nextWindow()
+    else
+      previousApp:activate()
+    end
+  else
+    previousApp = focusedWindow:application()
+    hs.application.launchOrFocusByBundleID(bundleID)
+  end
+end
+
+
+
+hs.hotkey.bind(hyper, "0", function()
+    hs.application.launchOrFocus('Notes.app')
+end)
+hs.hotkey.bind(hyper, "9", function()
+    hs.application.launchOrFocus('PyCharm CE 2.app')
+end)
+
+hs.hotkey.bind(hyper, "t", function()
+    hs.application.launchOrFocus('iTerm2.app')
+end)
+
+hs.hotkey.bind(hyper, "8", function()
+    hs.application.launchOrFocus('Chrome.app')
+end)
+
+hs.hotkey.bind(hyper, "d", function()
+    hs.application.launchOrFocus('Dash.app')
+end)
+
+hs.hotkey.bind(hyper, 'b', function()
+    local bundleID = hs.application.applicationsForBundleID()
+    hs.alert.show(bundleID)
+end)
